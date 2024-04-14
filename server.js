@@ -3,7 +3,9 @@ const http = require("http")
 const app = express()
 const server = http.createServer(app);
 const socketIO = require("socket.io")
+//serverside getting coppied
 const {copyToClipboard} = require('nodepy-clip');
+
 const io = new socketIO.Server(server, {
     cors: {
       origin: "*",
@@ -14,9 +16,11 @@ app.get("/",(req,res)=>{
     console.log(io.engine.clientsCount)
     console.log("hello")
 })
-io.on('connection', (socket) => {
 
+io.on('connection', (socket) => {
+    //
     console.log(`Client connected  socket client id : ${socket.id}`);
+    //copying the contents to clipboard stack
     socket.on('clipboardContent', (clipboardText) => {
         console.log(`Received clipboard content from client: ${clipboardText}`);
         copyToClipboard(clipboardText);
